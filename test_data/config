@@ -1,1 +1,49 @@
-
+{
+"soapnuke": {
+    "filter": {
+        "DNA": {
+            "-f": "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC",
+            "-r": "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT",
+            "-t": "0,0,0,0",
+            "-l": "20",
+            "-q": "0.2",
+            "-E": "60"
+            },
+        "RNA": {
+            "-f": "AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC",
+            "-r": "AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT",
+            "-t": "0,0,0,0",
+            "-l": "20",
+            "-q": "0.2",
+            "-E": "60"
+        }
+    }
+},
+"bwa":{
+    "aln": {
+        "DNA": {
+            "-n": "0.08",
+            "-k": "3",
+            "-t": "1",
+            "-l": "32"
+            },
+        "RNA": {
+            "-n": "0.08",
+            "-k": "3",
+            "-t": "1",
+            "-l": "32"
+        }
+    },
+    "sampe": {
+        "DNA": {
+            "-a": "500"
+        },
+        "RNA": {
+            "-a": "100000"
+        }
+    },
+    "mem": {
+        "-t": "4"
+    }
+}
+}
