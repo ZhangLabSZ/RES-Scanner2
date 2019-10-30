@@ -1,1 +1,69 @@
+#! /bin/bash
+# This is the entry of our pipeline.
+#
+# Author: Ji Li, liji1@genomics.cn
+#
 
+Name="ires"
+Ver="2.0"
+
+# Set env.
+sf_path_abs=$(dirname $(dirname "$(readlink -f "$0")"))
+command_path=""
+########
+
+# Get python3 path. If not, try use built-in python.
+python_path_abs=`command -v python3 2>/dev/null`
+if [ -z "$python_path_abs" ]; then
+    python_path_abs=$sf_path_abs"/bin/python3.7"
+    err_python=`command $python_path_abs -c "import os" 2>&1`
+    if [ -n "$err_python" ]; then
+        echo "Need python version: 3.x +"
+        exit
+    fi
+fi
+python_module_path=$sf_path_abs"/library"
+#erro_python_module=`$python_path_abs -c "import pysam" 2>&1`
+#if [ -n "$erro_info" ]; then
+#    echo "Need python module: pysam"
+#    exit
+#fi
+########
+
+# Two function.
+Usage(){
+    echo "
+Program: $Name (tools for Identification of RNA Editing Sites)
+Version: $Ver
+
+Usage:   $Name <command> [options]
+
+Command: preprocess    reads filter, bam filter and genome snps fix
+         sam2base      transfer sam format to single base format
+         replacegeo    replace genome with 8 types (A->C, A->G, A->T and so on)
+         scanner       scan all types of RNA editing sites in bwa alignment region
+         hyper         identify hyper editing sites using unmapped reads in the result of bwa
+         merge         merge result from scanner or hyper
+"
+}
+main(){
+    case $1 in
+        preprocess) command_path=$python_module_path"/preprocess.py" ;;
+        sam2base) command_path=$python_module_path"/sam2base.py" ;;
+        replacegeo) command_path=$python_module_path"/replacegeo.py" ;;
+        scanner) command_path=$python_module_path"/scanner.py" ;;
+        hyper) command_path=$python_module_path"/hyper.py" ;;
+        merge) command_path=$python_module_path"/merge.py" ;;
+        -h|--help|'') Usage && exit;;
+        -v|-V|--version|--Version) echo "$Name version $Ver" && exit;;
+        *) echo "Unrecognized command '$1'" && exit;;
+    esac
+}
+########
+
+# Main pipeline
+main $@
+
+if [ -n "$command_path" ]; then
+    exec "$python_path_abs" $command_path ${@:2}
+fi
