@@ -1,5 +1,5 @@
 # RES-Scanner2
-RES-Scanner 2 is a software package for genome-wide identification and annotation of RNA-editing sites for any species with matched RNA-Seq and DNA-Seq data. Compared with last version of perl, we add the function of identification for hyper editing sites, optimize some logic problems, and reduce the labor intensity to run. We also make this pipeline adapt to many different inputs as possible.
+RES-Scanner 2 is a software package for genome-wide identification and annotation of RNA-editing sites for any species with matched RNA-Seq and DNA-Seq data. Compared with last version of perl, we add the function of identification for hyper editing sites, optimize some logic problems, and reduce the labor intensity. We also make this pipeline adapt to many different inputs as possible.
 ## Requirements
 Python >= 3.3 and [Pysam](https://pysam.readthedocs.io/en/latest/api.html).  
 [BWA](http://bio-bwa.sourceforge.net/), [SOAPnuke](https://github.com/BGI-flexlab/SOAPnuke), [JAVA](https://en.wikipedia.org/wiki/Java_(programming_language)), [PILON](https://github.com/broadinstitute/pilon/wiki) and [BLAT](https://genome.ucsc.edu/FAQ/FAQblat.html) are needed by some functions.  
