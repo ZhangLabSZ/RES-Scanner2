@@ -35,3 +35,8 @@ ires scanner -o scanner/ --DNA-depth 10 --strand + --rate 2 --blat <path/to/blat
 ```
 ires hyper -o hyper/ preprocess/ref.fa.fix_snps.fa preprocess/aln/RNA_aln.bam preprocess/DNA_aln.best.bam.sb.gz preprocess/soapnuke/RNA/rna_1.fq_1.clean.fq.gz preprocess/soapnuke/RNA/rna_2.fq_2.clean.fq.gz
 ```
+#### Step5: merge editing sites and hyper-editing sites.
+```
+ires merge res --config table --genome ref.fa
+ires merge rhes --table hyper/table/ --pos preprocess/RNA_aln.positive.sorted.bam.sb.gz --neg preprocess/RNA_aln.negative.sorted.bam.sb.gz
+```
