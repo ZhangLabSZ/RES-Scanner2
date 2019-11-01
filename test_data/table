@@ -1,0 +1,1 @@
+small_worker    preprocess/DNA_aln.best.sorted.bam.sb.gz    preprocess/RNA_aln.positive.sorted.bam.sb.gz    scanner/RNA_aln.positive.sorted.bam.sb.gz.homo.filter.gz    preprocess/RNA_aln.negative.sorted.bam.sb.gz    scanner/RNA_aln.negative.sorted.bam.sb.gz.homo.filter.gz
