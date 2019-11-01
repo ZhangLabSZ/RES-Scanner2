@@ -22,18 +22,18 @@ ires preprocess -o preprocess/ --bwa <path/to/bwa> --soapnuke <path/to/soapnuke>
 ```
 ##### Step2: transform bam result to single base format.
 ```
-ires sam2base --trim 0,0 preprocess/ref.fa.fix_snps.fa preprocess/DNA_aln.best.bam
-ires sam2base --trim 6,6 preprocess/ref.fa.fix_snps.fa preprocess/RNA_aln.negative.bam
-ires sam2base --trim 6,6 preprocess/ref.fa.fix_snps.fa preprocess/RNA_aln.positive.bam
+ires sam2base --trim 0,0 preprocess/ref.fa.fix_snps.fa preprocess/DNA_aln.best.sorted.bam
+ires sam2base --trim 6,6 preprocess/ref.fa.fix_snps.fa preprocess/RNA_aln.negative.sorted.bam
+ires sam2base --trim 6,6 preprocess/ref.fa.fix_snps.fa preprocess/RNA_aln.positive.sorted.bam
 ```
 ##### Step3: identify editing sites in genome wide.
 ```
-ires scanner -o scanner/ --DNA-depth 10 --strand - --rate 2 --blat <path/to/blat> preprocess/ref.fa.fix_snps.fa preprocess/DNA_aln.best.bam.sb.gz preprocess/RNA_aln.negative.bam.sb.gz preprocess/RNA_aln.negative.bam
-ires scanner -o scanner/ --DNA-depth 10 --strand + --rate 2 --blat <path/to/blat> preprocess/ref.fa.fix_snps.fa preprocess/DNA_aln.best.bam.sb.gz preprocess/RNA_aln.positive.bam.sb.gz preprocess/RNA_aln.positive.bam
+ires scanner -o scanner/ --DNA-depth 10 --strand - --rate 2 --blat <path/to/blat> preprocess/ref.fa.fix_snps.fa preprocess/DNA_aln.best.sorted.bam.sb.gz preprocess/RNA_aln.negative.sorted.bam.sb.gz preprocess/RNA_aln.negative.sorted.bam
+ires scanner -o scanner/ --DNA-depth 10 --strand + --rate 2 --blat <path/to/blat> preprocess/ref.fa.fix_snps.fa preprocess/DNA_aln.best.sorted.bam.sb.gz preprocess/RNA_aln.positive.sorted.bam.sb.gz preprocess/RNA_aln.positive.sorted.bam
 ```
 ##### Step4: identify hyper-editing sites using unmapped reads in step1.
 ```
-ires hyper -o hyper/ preprocess/ref.fa.fix_snps.fa preprocess/aln/RNA_aln.bam preprocess/DNA_aln.best.bam.sb.gz preprocess/soapnuke/RNA/rna_1.fq_1.clean.fq.gz preprocess/soapnuke/RNA/rna_2.fq_2.clean.fq.gz
+ires hyper -o hyper/ --rate 2 --hisat <path/to/hisat> --hisat-build <path/to/hisat-build> --bwa <path/to/bwa> preprocess/ref.fa.fix_snps.fa preprocess/aln/RNA_aln.bam preprocess/DNA_aln.best.sorted.bam.sb.gz preprocess/soapnuke/RNA/rna_1.fq_1.clean.fq.gz preprocess/soapnuke/RNA/rna_2.fq_2.clean.fq.gz
 ```
 #### Step5: merge editing sites and hyper-editing sites.
 ```
